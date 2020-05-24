@@ -1,14 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2020 Senparc
+  
+    文件名：TenpayV3ProtfitSharingRequestData.cs
+    文件功能描述：分账请求
+    
+    创建标识：hesi815 - 20200318
+
+    修改标识：15989221023 - 20200416
+    修改描述：v1.5.402 添加 Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
+
+    修改标识：15989221023 - 2020511
+    修改描述：v1.5.502.1 添加 TenPayV3UnifiedorderRequestData Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2174
+   
+----------------------------------------------------------------*/
+
 using Newtonsoft.Json;
 using Senparc.CO2NET.Extensions;
+using System;
 
 namespace Senparc.Weixin.TenPay.V3
 {
-
     /// <summary>
     /// 分账请求
     /// 服务商(单次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_1&index=1
@@ -19,7 +50,6 @@ namespace Senparc.Weixin.TenPay.V3
     /// </summary>
     public class TenpayV3ProtfitSharingRequestData
     {
-
         /// <summary>
         /// 公众账号ID
         /// </summary>
@@ -486,7 +516,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 此不带参数的构造函数是为了反序列化的实例初始化，提交数据时请使用其他构造函数
         /// </summary>
-        public TenpayV3ProfitShareingAddReceiverRequestData() 
+        public TenpayV3ProfitShareingAddReceiverRequestData()
         {
         }
 
@@ -641,6 +671,8 @@ namespace Senparc.Weixin.TenPay.V3
 
             //设置package订单参数
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
+            
+            PackageRequestHandler.SetParameter("version", Register.TenpayV3ProtfitRequestDataVersion); 
             PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID

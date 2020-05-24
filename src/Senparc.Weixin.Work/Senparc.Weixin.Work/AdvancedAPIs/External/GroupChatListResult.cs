@@ -19,55 +19,43 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-Copyright(C) 2017 Senparc
-
-文件名：ErrorJsonResultException.cs
-文件功能描述：JSON返回错误代码（比如token_access相关操作中使用）。
-
-
-创建标识：Senparc - 20150211
-
-修改标识：Senparc - 20150303
-修改描述：整理接口
-
-修改标识：Senparc - 20161225
-修改描述：v4.9.7 完善日志记录
-
+    Copyright (C) 2020 Senparc
+  
+    文件名：GroupChatListResult.cs
+    文件功能描述：获取客户群列表 返回结果
+    
+    
+    创建标识：lishewen - 20200318
 ----------------------------------------------------------------*/
 
-using System;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Exceptions
+namespace Senparc.Weixin.Work.AdvancedAPIs.External
 {
     /// <summary>
-    /// JSON返回错误代码异常（比如access_token相关操作中使用）
+    /// 获取客户群列表 返回结果
     /// </summary>
-    public class ErrorJsonResultException : WeixinException
+    public class GroupChatListResult : WorkJsonResult
     {
         /// <summary>
-        /// JsonResult
+        /// 客户群列表
         /// </summary>
-        public WxJsonResult JsonResult { get; set; }
-        /// <summary>
-        /// 接口 URL
-        /// </summary>
-        public string Url { get; set; }
+        public Group_Chat_List[] group_chat_list { get; set; }
+    }
 
+    public class Group_Chat_List
+    {
         /// <summary>
-        /// ErrorJsonResultException
+        /// 客户群IDs
         /// </summary>
-        /// <param name="message">异常消息</param>
-        /// <param name="inner">内部异常</param>
-        /// <param name="jsonResult">WxJsonResult</param>
-        /// <param name="url">API地址</param>
-        public ErrorJsonResultException(string message, Exception inner, WxJsonResult jsonResult, string url = null)
-            : base(message, inner, true)
-        {
-            JsonResult = jsonResult;
-            Url = url;
-
-            WeixinTrace.ErrorJsonResultExceptionLog(this);
-        }
+        public string chat_id { get; set; }
+        /// <summary>
+        /// 客户群状态。
+        /// 0 - 正常
+        /// 1 - 跟进人离职
+        /// 2 - 离职继承中
+        /// 3 - 离职继承完成
+        /// </summary>
+        public int status { get; set; }
     }
 }
